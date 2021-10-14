@@ -12,6 +12,10 @@ invoices = Table('invoices', metadata, autoload=True, autoload_with=engine)
 
 stmt = select([invoices])
 stmt = stmt.where(invoices.columns.BillingCity == "Warsaw")
+
+# Ale możemy też łańcuchować
+# stmt = select([invoices]).where(invoices.columns.BillingCity == "Warsaw")
+
 print(stmt)
 
 result_proxy = connection.execute(stmt)

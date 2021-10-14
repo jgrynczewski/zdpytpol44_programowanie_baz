@@ -11,13 +11,13 @@ metadata = MetaData()
 census = Table('census', metadata, autoload=True, autoload_with=engine)
 
 # Zbuduj zapytanie select o wartość w kolumnie 'state'
-stmt = ____
+stmt = select([census.columns.state])
 
 # Wynik uporządkuj rosnąco, alfabetycznie po kolumnie stan
-stmt = ____
+stmt = stmt.order_by(census.columns.state)
 
 # Wykonaj zapytanie, wynik zapisz do zmiennej results
-results = ____
+results = connection.execute(stmt).fetchall()
 
 # Wyświetl pierwsze 10 wyników
-print(____[:10])
+print(results[:10])

@@ -14,13 +14,13 @@ census = Table('census', metadata, autoload=True, autoload_with=engine)
 states = ['New York', 'California', 'Texas']
 
 # Stwórz zapytanie dla tabeli census
-stmt = select(____)
+stmt = select([census])
 
 # Dodaj warunek: interesują Cię tylko te wpisy, dla których stan znajduje się na liście states.
-# Użyj funkcji in_()
-stmt = stmt.where(____)
+# Użyj metody in_()
+stmt = stmt.where(census.columns.state.in_(states))
 
-# Przeiteruj się po ResultingProxy i dla każdego otrzymanego wpisu wyświetl
+# Przeiteruj się po ResultProxy i dla każdego otrzymanego wpisu wyświetl
 # odpowiadający mu stan i liczebość populacji na rok 2000
-for ____ in connection.execute(____):
-    print(____, ____)
+for item in connection.execute(stmt):
+    print(item.state, item.pop2000)

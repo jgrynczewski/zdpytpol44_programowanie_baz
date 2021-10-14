@@ -11,19 +11,19 @@ metadata = MetaData()
 census = Table('census', metadata, autoload=True, autoload_with=engine)
 
 # Zaimportuj funkcję and_
-from ____ import ____
+from sqlalchemy import and_
 
 # Zbuduj zapytanie
-stmt = select(____)
+stmt = select([census])
 
 # Dodaj warunek. Interesują Cię tylko wpisy, które nie dotyczą mężczyzn dla stanu California.
 # Użyj funkcji and_()
 stmt = stmt.where(
-    ____(census.columns.state == ____,
-         census.columns.sex != ____
+    and_(census.columns.state == 'California',
+         census.columns.sex != 'M'
          )
 )
 
 # Przeiteruj się po ResultProxu i wyświetl wiek oraz płeć dla każdego otrzymanego wpisu
-for result in ____:
-    print(____, ____)
+for result in connection.execute(stmt):
+    print(result.sex, result.age)

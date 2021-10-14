@@ -9,14 +9,14 @@ metadata = MetaData()
 census = Table('census', metadata, autoload=True, autoload_with=engine)
 
 # Stwórz zapytanie select
-stmt = ____
+stmt = select([census])
 
 # Dodaj warunek na stan, interesują Cię tylko wpisy dla stanu - New York
-stmt = stmt.____
+stmt = stmt.where(census.columns.state == 'New York')
 
 # Wykonaj zapytanie i pobierz wynik
-results = ____
+results = engine.execute(stmt)
 
 # Przeiteruj się po wyniku i wyświetl wartości w kolumnach: age, sex i pop2000
-for ___ in ____:
-    print(result.age, ____, ____)
+for result in results:
+    print(result.state, result.age, result.sex, result.pop2000)

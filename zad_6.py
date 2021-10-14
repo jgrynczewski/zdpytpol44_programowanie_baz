@@ -17,13 +17,13 @@ print(stmt)
 results = connection.execute(stmt).fetchmany(size=10)
 
 # Pobierz pierwszy wiersz wyniku używając indeksu
-first_row = ____
+first_row = results[0]
 
 # Wyświetl wartość pierwszego wiersza
 print(first_row)
 
 # Wyświetl wartość w pierwszej kolumnie pierwszego wiersza przy użyciu indeksu
-print(____)
+print(first_row[0])
 
 # Wyświetl wartość w pierwszej kolumnie pierwszego wiersza używając klucza
-print(____)
+print(first_row['state'])

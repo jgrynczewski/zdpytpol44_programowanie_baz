@@ -3,7 +3,7 @@ from sqlalchemy import MetaData
 from sqlalchemy import Table
 
 # Zaimportuj funkcję select
-from ____ import ____
+from sqlalchemy import select
 
 engine = create_engine('sqlite:///census.sqlite')
 connection = engine.connect()
@@ -14,13 +14,13 @@ metadata = MetaData()
 census = Table('census', metadata, autoload=True, autoload_with=engine)
 
 # Zbuduj zapytanie select na tabeli census
-stmt = ____
+stmt = select([census])
 
 # Wyświetl instrukcję, w celu sprawdzenia wygenerowanej sqlki
 print(stmt)
 
 # Wykonaj instrukcję select na połączeniu i pobierz tylko 10 wpisów
-results = ____.____(____).____(size=___)
+results = connection.execute(stmt).fetchmany(size=10)
 
 # Wykonaj instrukcję i wyświetl wynik.
 print(results)

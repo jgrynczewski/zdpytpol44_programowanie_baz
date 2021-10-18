@@ -12,24 +12,24 @@ metadata = MetaData()
 census = Table('census', metadata, autoload=True, autoload_with=engine)
 
 # zaimportuj z sqlalchemy case, cast i Float
-from sqlalchemy import ____, ____, ____
+from sqlalchemy import case, cast, Float
 
 # Utwórz zapytanie zliczające liczbę kobiet w całej populacji USA w 2000 roku
 female_pop2000 = func.sum(
-    ____([
-        (____ == ____, ____)
-    ], else_=____))
+    case([
+        (census.columns.sex == 'F', census.columns.pop2000)
+    ], else_=0))
 
 # Utwórz zapytanie zliczające całkowitą liczebność populacji w 2000 roku.
 # Wynik zrzutuj na Float
-total_pop2000 = cast(func.sum(____), ____)
+total_pop2000 = cast(func.sum(census.columns.pop2000), Float)
 
 # Zbuduj zapytanie obliczające procentowy udział kobiet w społeczeństwie
 # wykorzystują utworzone już zapytania
-stmt = select([____ / ____* 100])
-
+stmt = select([female_pop2000 / total_pop2000 * 100])
+print(stmt)
 # Wykonaj zapytanie, wynik przypisz do zmiennej percent_female
-percent_female = connection.execute(____).scalar()
+percent_female = connection.execute(stmt).scalar()
 
 # Wyświetl procentowy wynik
-print(____)
+print(percent_female)

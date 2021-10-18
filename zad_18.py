@@ -13,19 +13,22 @@ census = Table('census', metadata, autoload=True, autoload_with=engine)
 
 # Zbuduj zapytanie, które zwróci nazwę stany i różnicę pomiędzy liczebnością populacji
 # w latach 2008 i 2000. Kolumnę reprezentującą różnicę nazwij pop_change
-stmt = select([____, (____-____).label(____)])
+stmt = select([
+    census.columns.state,
+    (census.columns.pop2008 - census.columns.pop2000).label('pop_change')
+])
 
 # Wyniki pogrupuj po kolumnie state
-stmt_grouped = stmt.group_by(____)
+stmt_grouped = stmt.group_by(census.columns.state)
 
 # Wyniki uporządkuj po kolumnie pop_change w porządku malejącym (desc)
-stmt_ordered = stmt_grouped.order_by(____)
+stmt_ordered = stmt_grouped.order_by(desc('pop_change'))
 
 # Zwróć tylko pięć pierwszych wyników
-stmt_top5 = ____
+stmt_top5 = stmt_ordered.limit(5)
 
 # Wykonaj zapytanie na bazie
-results = connection.execute(____).fetchall()
+results = connection.execute(stmt_top5).fetchall()
 
 # Wyświetl wyniki
 for result in results:

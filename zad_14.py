@@ -11,21 +11,22 @@ metadata = MetaData()
 census = Table('census', metadata, autoload=True, autoload_with=engine)
 
 # Zaimportuj moduł func
-____
+from sqlalchemy import func
 
 # W tym zadaniu sparwdzimy ile w bazie mamy wpisów w kolumnie age dla poszczególnych
 # stanów. Zbuduj zapytanie o wartość w kolumnie state i zliczające wartości kolumny
 # ages
-stmt = select([____, ____])
+stmt = select([census.columns.state, func.count(census.columns.age)])
 
 # Pogrupuj po kolumnie state
-stmt = stmt.group_by(____)
+stmt = stmt.group_by(census.columns.state)
+print(stmt)
 
 # Wykonaj zapytanie, wynik przechowaj w zmiennej results
-results = connection.execute(____).fetchall()
+results = connection.execute(stmt).fetchall()  # -> List (ResultSet)
 
 # Wyświetl wynik
 print(results)
 
 # Wyświetl nazwy kolumn (klucze) wyniku
-print(____)
+print(results[0].keys())

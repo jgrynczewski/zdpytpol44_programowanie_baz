@@ -11,16 +11,16 @@ metadata = MetaData()
 census = Table('census', metadata, autoload=True, autoload_with=engine)
 
 # Zaimportuj funkcję desc
-from ____ import ____
+from sqlalchemy import desc
 
 # Zbuduj zapytanie o wartości w kolumnie state tabeli census
-stmt = ____
+stmt = select([census.columns.state])
 
 # Posortuj wyni w kolejności odwrotnej
-rev_stmt = stmt.order_by(____)
+rev_stmt = stmt.order_by(desc(census.columns.state))
 
 # Wykonaj zapytanie i zapisz wynik w zmiennej rev_results
-rev_results = ____
+rev_results = connection.execute(rev_stmt).fetchall()
 
 # Wyświetl piersze 10 wpisów
-print(____)
+print(rev_results)

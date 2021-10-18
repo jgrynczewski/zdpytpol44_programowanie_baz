@@ -11,13 +11,13 @@ metadata = MetaData()
 census = Table('census', metadata, autoload=True, autoload_with=engine)
 
 # Zaimportuj moduł func
-from ____ import ____
+from sqlalchemy import func
 
 # Zbuduj zapytanie zliczające wszystkie unikalne stany w tabeli census
-stmt = select([____])
+stmt = select([func.count(census.columns.state.distinct())])
 
 # Wykonaj zapytanie, wynik przechowaj w zmiennej distinct_state_count
-distinct_state_count = connection.execute(____).scalar()
+distinct_state_count = connection.execute(stmt).scalar()
 
 # Wyświetl liczbę unikalnych stanów
-print(____)
+print(distinct_state_count)

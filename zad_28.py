@@ -15,8 +15,8 @@ my_table = Table(
 )
 
 # Zaimportuj funckje insert i select z sqlalchemy
-from sqlalchemy import ____
-from sqlalchemy import ____
+from sqlalchemy import insert
+from sqlalchemy import select
 
 # Zbuduj zapytanie insert.
 # Nowy wpis w tabeli my_table ma postać:
@@ -25,26 +25,26 @@ from sqlalchemy import ____
 # amount - 1000.00
 # valid - True
 insert_stmt = insert(
-    ____
+    my_table
 ).values(
-    name=____,
-    ____,
-    ____,
-    ____
+    name='Anna',
+    count=1,
+    amount=1000.00,
+    valid=True
 )
 
 # Wykonaj zapytanie na bazie
-results = connection.execute(____)
+results = connection.execute(insert_stmt)
 
 # Wyświetl liczbę wpisów dodanych do bazy
-print(____)
+print(results.rowcount)
 
 # Zbuduj zapytanie select, które zweryfikuje zawartość tabeli.
 # Zapytaj o właśnie dodany wpis
 select_stmt = select([
     my_table
 ]).where(
-    ____ == ____
+    my_table.columns.name == 'Anna'
 )
 
 # Wyświetl pobrany wpis

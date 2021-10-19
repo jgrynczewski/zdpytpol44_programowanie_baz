@@ -17,17 +17,17 @@ metadata = MetaData()
 # amount - Float(),
 # valid - Boolean z wartością domyślną False
 
-my_table = Table(
-    'my_table',
+my_table2 = Table(
+    'my_table2',
     metadata,
-    Column('name', String(255), unique=____),
-    Column('count', Integer(), default=____),
+    Column('name', String(255), unique=True),
+    Column('count', Integer(), default=1),
     Column('amount', Float()),
-    Column('valid', Boolean(), default=____)
+    Column('valid', Boolean(), default=False)
 )
 
 # Użyj kontenera metadata do stworzenia tabeli
 metadata.create_all(engine)
 
 # Wyświetl szczegóły tabeli
-print(metadata.tables['my_table'])
+print(metadata.tables['my_table2'])

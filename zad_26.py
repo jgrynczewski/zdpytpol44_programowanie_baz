@@ -6,12 +6,12 @@ engine = create_engine('sqlite:///my_db.sqlite')
 metadata = MetaData()
 
 # Zaimportuj Table, Column, String, Integer, Float, Boolean z sqlalchemy
-from sqlalchemy import ____
-from sqlalchemy import ____
-from sqlalchemy import ____
-from sqlalchemy import ____
-from sqlalchemy import ____
-from sqlalchemy import ____
+from sqlalchemy import Table
+from sqlalchemy import Column
+from sqlalchemy import String
+from sqlalchemy import Integer
+from sqlalchemy import Float
+from sqlalchemy import Boolean
 
 # Stwórz nową tabelę z kolumnami:
 # name - String(255),
@@ -21,15 +21,15 @@ from sqlalchemy import ____
 
 my_table = Table(
     'my_table',
-    ____,
-    Column(____, ____),
+    metadata,
+    Column('name', String(255)),
     Column('count', Integer()),
-    Column(____, ____),
-    Column(____, ____)
+    Column('amount', Float()),
+    Column('valid', Boolean())
 )
 
 # Użyj kontenera metadata do stworzenia tabeli
-metadata.create_all(____)
+metadata.create_all(engine)
 
 # Wyświetl szczegóły tabeli
 print(repr(my_table))

@@ -25,28 +25,28 @@ more_results = True
 # na typ boolean ma wartość True
 while more_results:
     # pobierz piersze 100 wpisów wykorzystujące do tego obiekt klasy ResultProxy
-    partial_results = result_proxy.fetchmany(___)
+    partial_results = result_proxy.fetchmany(100)
 
     # Jeżeli wynik jest pustą listą ustaw more_result na False
     # (to spowoduje wyjście z pętli przy następnej iteracji)
     if partial_results == []:
-        more_results = ____
+        more_results = False
 
     # Przeiteruj się po rekordach w częściowym wyniku.
     # Loop over the fetched records and increment the count for the state
-    for row in ____:
+    for row in partial_results:
         # Jeżeli nazwa stanu z aktualnego wpisu znaduje się w słowniku
         if row.state in state_count:
             # Zwiększ licznik (wartość pod kluczem odopwiadającym nazwie stanu) dla
             # aktualnego stanu o 1
-            ____
+            state_count[row.state] += 1
         # W przeciwnym razie
         else:
             # Dodaj nowy klucz (nazwa stanu) i ustaw jego wartość na 1
-            ____
+            state_count[row.state] = 1
 
 # Zamknij ResultProxy (a tym samym połączenie)
-result_proxy.____
+result_proxy.close()
 
 # Wyświetl state_count
 print(state_count)

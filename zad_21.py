@@ -14,16 +14,17 @@ state_fact = Table('state_fact', metadata, autoload=True, autoload_with=engine)
 
 # Zbuduj zapytanie, które wybierze wszystkie kolumny z tabel
 # census i state_facts
-stmt = select([____, ____])
+stmt = select([census, state_fact])
 
 # Złącz tabele wzdłuż kolumn census.state i state_fact.name
 # użyj metody select_from obiektu klasy Select i metody
 # join obiektu klasy
 stmt_join = stmt.select_from(
-    ____(____, census.columns.____ == state_fact.columns.____))
+    census.join(state_fact, census.columns.state == state_fact.columns.name))
 
+print(stmt_join)
 # Wykonaj zapytanie i pobierze pierwszy rekord wyniku
-result = connection.execute(stmt_join).first()
+result = connection.execute(stmt_join).first()  # -> LegacyRow
 
 # Przeiteruj się po kluczach i wartościach pobranego wpisu
 for key in result.keys():

@@ -1,3 +1,4 @@
+# Samozłączenie
 from sqlalchemy import create_engine
 from sqlalchemy import MetaData
 from sqlalchemy import Table
@@ -11,21 +12,20 @@ metadata = MetaData()
 employees = Table('employees', metadata, autoload=True, autoload_with=engine)
 
 # Utwórz alias do tabeli employees - managers
-managers = ____
+managers = employees.alias()
 
 # Zbuduj zapytanie o imiona managerów i ich podwładnych
-# Build a query to select names of managers and their employees: stmt
 stmt = select(
     [managers.columns.name.label('manager'),
-     ____]
+     employees.columns.name.label('employee')]
 )
 
 # Dopasuj wartości w kolumnie id tabeli manager
 # z klumną mgr tabeli employees
-stmt_matched = stmt.where(managers.columns.id == ____)
+stmt_matched = stmt.where(managers.columns.id == employees.columns.mgr)
 
 # Uporządkuj wynik po kolumnie name tabeli managers
-stmt_ordered = stmt_matched.order_by(____)
+stmt_ordered = stmt_matched.order_by(managers.columns.name)
 
 # Wykonaj zaptanie
 results = connection.execute(stmt_ordered).fetchall()

@@ -15,13 +15,19 @@ state_fact = Table('state_fact', metadata, autoload=True, autoload_with=engine)
 # Zbuduj zapytanie złączające tabele census i state_fact,
 # interesują Cię kolumna pop2008 tabeli census
 # oraz tabela abbrevation tabeli state_fact
-stmt = select([____, ____])
+stmt = select(
+    [census.columns.pop2008, state_fact.columns.abbreviation]
+).select_from(
+    census.join(
+        state_fact,
+        census.columns.state == state_fact.columns.name
+    )
+)
 
 # Wykonaj zapytanie i pobierz pierwszy rekord wyniku
-result = connection.execute(____).first()
+result = connection.execute(stmt).first()
 
 # Przeiteruj się po nazwach kolumn pobranego wyniku
 # Wyświetl klucz i odpowiadającą mu wartość we wpisie
-# Loop over the keys in the result object and print the key and value
 for key in result.keys():
     print(f"{key}: \t {result[key]}")

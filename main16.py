@@ -3,9 +3,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy import MetaData
 from sqlalchemy import Table
-from sqlalchemy import insert
 
-# Tworzenie bazy - wystarczy podać nieistniącą bazę w napisie połączeniowym
+
 engine = create_engine('sqlite:///my_employees.sqlite')
 connection = engine.connect()
 metadata = MetaData()
@@ -21,6 +20,7 @@ employees = Table(
 # 2. ze słownikiem
 
 # 1. z metodą values
+from sqlalchemy import insert
 
 stmt = insert(
     employees  # Uwaga! W insert tabela, a nie tak jak w select - lista

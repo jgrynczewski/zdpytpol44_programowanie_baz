@@ -22,15 +22,17 @@ my_table = Table(
 # Drugi słownik reprezentuje dane:
 # name - 'Steve', count - 1, amount - 750.00, valid - False
 values_list = [
-    {'name': ____, 'count': ____, 'amount': ____, 'valid': ____},
-    ____
+    {'name': 'Eva', 'count': 1, 'amount': 2000, 'valid': True},
+    {'name': 'Steve', 'count':1, 'amount': 750, 'valid': False}
 ]
 
 # Zbuduje zapytanie insert
-stmt = ____
+stmt = insert(
+    my_table
+)
 
 # Wykonaj zapytanie insert z danymi słownikowymi
-results = connection.execute(____, ____)
+results = connection.execute(stmt, values_list)
 
 # Wyświetl liczbę wpisów, które zostały dodane
 # do tabeli w ramach zapytania

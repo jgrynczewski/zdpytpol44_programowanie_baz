@@ -22,13 +22,17 @@ state_fact = Table(
 
 # Zbuduj zapytanie aktualizujące (wartość w kolumnie notes
 # powinna być ustawiana na 'The Wild West')
-stmt = update(____).values(____=____)
+stmt = update(
+    state_fact
+).values(
+    notes="The Wild West"
+)
 
 # Ustaw filtr na wpisy których wartość w kolumnie census_region_name na "West"
-stmt_west = stmt.____(____ == ____)
+stmt_west = stmt.where(state_fact.columns.census_region_name == "West")
 
 # Wykonaj zapytanie
-results = connection.execute(____)
+results = connection.execute(stmt_west)
 
 # Wyświetl licznę zaktualizowanych wpisów
 print(results.rowcount)

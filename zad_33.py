@@ -4,12 +4,12 @@ from sqlalchemy import MetaData
 from sqlalchemy import Table
 from sqlalchemy import select, delete
 
-engine = create_engine('sqlite:///census.sqlite')
+engine = create_engine('sqlite:///census2.sqlite')
 connection = engine.connect()
 
 metadata = MetaData()
 census = Table(
-    'census2',
+    'census',
     metadata,
     autoload=True,
     autoload_with=engine
@@ -17,10 +17,10 @@ census = Table(
 
 # Zbuduj zapytanie, które wyczyści tabele census
 # Build a statement to empty the census table: stmt
-delete_stmt = ____
+delete_stmt = delete(census)  # !NIEBEZPIECZNE
 
 # Wykonaj zapytanie, wynik przypisz do zmiennej results
-results = ____
+results = connection.execute(delete_stmt)
 
 # Sprawdź ilu wierszy dotknęła zmiana
 print(results.rowcount)

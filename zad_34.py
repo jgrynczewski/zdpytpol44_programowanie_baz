@@ -21,13 +21,13 @@ state_fact = Table(
 )
 
 # Usuń tablę state_fact (metoda drop obiektu Table)
-____
+state_fact.drop(engine)
 
 # Sprawdź czy tabela state_fact istnieje w bazie
-print(____)
+print(state_fact.exists(engine))
 
 # Usuń wszystkie tabele bazy (metoda drop_all obiektu MetaData)
-____
+metadata.drop_all(engine)
 
 # Sprawdź czy tabela census istnieje
-print(____)
+print(census.exists(engine))

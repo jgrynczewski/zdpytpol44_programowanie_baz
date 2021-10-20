@@ -6,7 +6,7 @@ from sqlalchemy import select
 from sqlalchemy import func
 from sqlalchemy import and_
 
-engine = create_engine('sqlite:///census3.sqlite')
+engine = create_engine('sqlite:///census2.sqlite')
 connection = engine.connect()
 
 metadata = MetaData()
@@ -18,7 +18,7 @@ census = Table(
 )
 
 # Import delete
-from sqlalchemy import ____
+from sqlalchemy import delete
 
 # Zapytanie zliczające liczbę wpisów posiadających wartość 'M'
 # w kolumnie sex i wartość 36 w kolumnie age
@@ -33,17 +33,19 @@ count_stmt = select([func.count(census.columns.sex)]).where(
 to_delete = connection.execute(count_stmt).scalar()
 
 # Zbuduj zapytanie na usunięci wpisów z tabeli census
-delete_stmt = ____
+delete_stmt = delete(
+    census
+)
 
 # Usuń tylko te wpisy, które w kolumnie sex mają wartość 'M',
 # a w kolumnie age 36
-delete_stmt = delete_stmt.____(
-    ____(census.columns.sex == ____,
-         ____ == ____)
+delete_stmt = delete_stmt.where(
+    and_(census.columns.sex == 'M',
+         census.columns.age == 36)
 )
 
 # Wykonaje zapytanie
-results = connection.execute(____)
+results = connection.execute(delete_stmt)
 
 # Porównanie liczby wierszy, które zostały usunięte z liczbą wierszy
 # które były do usunięcia

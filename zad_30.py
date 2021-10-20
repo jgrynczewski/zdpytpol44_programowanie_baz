@@ -23,34 +23,44 @@ state_fact = Table(
 
 # 1. Zbuduj zapytanie o wpis z tabeli state_facts
 # dla którego wartość w polu name wynosi 'New York'
-select_stmt = select([____]).where(____ == ____)
+select_stmt = select([
+    state_fact.columns.fips_state
+]).where(
+    state_fact.columns.name == "New York"
+)
 
 # Wykonaj zapytanie i pobierz wynik (fetchall)
-results = connection.____(____).____()
+results = connection.execute(select_stmt).fetchall()
 
 # Wyświetl kod FIPS wyniku
-print(results[0]['___'])  # -> 36
+print(results[0]['fips_state'])  # -> 36
 
 # 2. Teraz zaktualizuj tą wartość (zmień na 32)
 
 # Zaimportuj funkcję update z sqlalchemy
-from sqlalchemy import ____
+from sqlalchemy import update
 
 # Zbuduj zapytanie, które zaktualizauje wartości w kolumnie
 # fips_state tabeli state_facts na 32
-update_stmt = update(state_fact).values(____ = ____)
+update_stmt = update(
+    state_fact
+).values(
+    fips_state=32
+)
 
 # Aktualizacja ma dotyczyć tylko rekordu dla Nowego Jorku
-update_stmt = update_stmt.where(____ == ____)
+update_stmt = update_stmt.where(
+    state_fact.columns.name == "New York"
+)
 
 # Wykonaj zapytanie
-update_results = connection.execute(____)
+update_results = connection.execute(update_stmt)
 
 # 3. Sprawdź, czy wartość została zmieniona
 # Ponownie wykonaj zapytanie o wpis dla Nowego Jorku
 # (sqlke mamy już przygotowaną - select_stmt, więc nie
 # trzeba jej ponownie tworzyć, możemy ją wykorzystać)
-new_results = ____.____.____
+new_results = connection.execute(select_stmt).fetchall()
 
 # Wyświetl kod FIPS wyniku
-print(results[0]['___'])  # -> 32
+print(new_results[0]['fips_state'])  # -> 32

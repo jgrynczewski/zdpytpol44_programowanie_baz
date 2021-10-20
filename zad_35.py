@@ -26,25 +26,25 @@ stmt = select([
 results = connection.execute(stmt).fetchall()
 
 # import pandas
-import ____ as pd
+import pandas as pd
 
 # import matplotlib
-import ____.____ as plt
+import matplotlib.pyplot as plt
 
 # Stwórz obiekty klasy DataFrame (podstawowy obiekt biblioteki pandas)
 # w inicjalizatorze przekaż wynik zapytania (results)
-df = ____.____(____)
+df = pd.DataFrame(results)
 
 # Kolumnom dataframe przypisz klucze pojedynczego wpisu w results
-df.columns = ____[0].____()
+df.columns = results[0].keys()
 
 # Wyświetl dataframe
-print(____)
+print(df)
 
 #  Rzutowanie wartości w kolumnie total dataframe do wartośći numerycznych
 df[["total"]] = df[["total"]].apply(pd.to_numeric)
 
 # Wyświetl wykres, na którym bedzie przedstawiona wartość
 # całkowita faktur wystwionych dla poszczególnych krajów
-df.____.____(x=____, y=____)
-____.____()
+df.plot.barh(x='country', y='total')
+plt.show()

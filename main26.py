@@ -20,13 +20,22 @@ user = db.Table(
     autoload_with=engine
 )
 
-stmt = f"SELECT * FROM user WHERE username='{given_username}' AND password='{given_password}'"
+# Tego nie wolno robić
+# stmt = f"SELECT * FROM user WHERE username='{given_username}' AND password='{given_password}'"
+# stmt = "SELECT * FROM user WHERE username='{}' AND password='{}'".format(given_username, given_password)
+# stmt = "SELECT * FROM user WHERE username='%s' AND password='%s'" % (given_username, given_password)
 # Wstrzyknięcie sql
 # 'SELECT * FROM user WHERE username='sdvs' AND password='aegfaeg' OR 1=1--'
 
+# Robimy tak
+stmt = db.sql.text("SELECT * FROM user WHERE username=:username AND password=:password")
 print(stmt)
 
-results = connection.execute(stmt).fetchall()
+results = connection.execute(
+    stmt,
+    username=given_username,
+    password=given_password
+).fetchall()
 
 if results:
     print(f"\nWitaj {results[0].username}!")

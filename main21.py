@@ -1,4 +1,4 @@
-# Zasilanie bazy (fixtures) JSON
+# Zasilanie bazy z pliku zewnętrznego JSON (fixtures)
 from sqlalchemy import create_engine
 from sqlalchemy import MetaData
 from sqlalchemy import Table

@@ -1,4 +1,4 @@
-# SQL Injection 1
+# SQL Injection 1 - stworzenie bazy do prezentacji sql injection
 import sqlalchemy as db
 
 engine = db.create_engine("sqlite:///users.sqlite")

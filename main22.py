@@ -1,4 +1,4 @@
-# Zasilanie bazy SQL-ką
+# Zasilanie bazy skryptem SQL
 from sqlalchemy import create_engine
 
 engine = create_engine('sqlite:///new_census2.sqlite')

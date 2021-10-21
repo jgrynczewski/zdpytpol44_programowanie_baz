@@ -1,4 +1,4 @@
-# Konsumowanie danych
+# Konsumowanie danych (wizualizacja) (pandas + matplotlib)
 import sqlalchemy as db
 
 engine = db.create_engine("sqlite:///census.sqlite")
